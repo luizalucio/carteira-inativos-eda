@@ -2,6 +2,8 @@
 
 Análise exploratória e descritiva da carteira de participantes inativos de uma seguradora, com foco na compreensão do perfil do grupo e avaliação de risco atuarial.
 
+> PROJETO EM ANDAMENTO
+
 ## Sobre o projeto
 
 > Este projeto foi desenvolvido como atividade prática da disciplina **Consultoria em Estatística I (GES 120)**, do curso de Estatística da **Universidade Federal de Lavras (UFLA)**, 3º semestre de 2026, sob orientação do **Prof. Luiz Otávio Pala**.
