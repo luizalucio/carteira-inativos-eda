@@ -1,0 +1,139 @@
+---
+title: "Relatório de Consultoria: Seguradora"
+subtitle: "Projeto estudantil"
+lang: pt
+format:
+  html:
+    fontsize: 11pt
+    theme: [flatly, relatorio-style.scss]
+    toc: true
+    toc-title: "Conteúdo"
+    toc-location: left
+    number-sections: true
+    smooth-scroll: true
+    embed-resources: true
+  pdf:
+    documentclass: article
+    papersize: a4
+    fontsize: 10pt
+    geometry:
+      - top=1.5cm
+      - bottom=1.5cm
+      - left=2cm
+      - right=2cm
+    include-in-header:
+      text: |
+        \usepackage{fancyhdr}
+        \usepackage{titlesec}
+        \titlespacing*{\section}{0pt}{6pt}{4pt}
+        \titlespacing*{\subsection}{0pt}{4pt}{2pt}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \fancyhead[L]{\small\textit{Consultoria Estatística}}
+        \fancyhead[R]{\small\textit{DES/UFLA}}
+        \fancyfoot[C]{\thepage}
+    fig-pos: 'H'
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{python}
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+df = pd.read_excel("dados_seguradora.xlsx")
+```
+
+## Identificação do Projeto
+**Cliente:** Seguradora
+
+**Contato:** luiza.lucio1@estudante.ufla.br 
+
+**Projeto:** Análise descritiva da Carteira de Participantes inativos
+
+**Disciplina:** Consultoria Estatística I – GES120 
+
+## Objetivo
+
+Realizar análise exploratória e descritiva da carteira de participantes inativos (aposentados) de uma seguradora, com foco na compreensão do perfil do grupo e avaliação de risco.
+
+## Descrição dos Dados
+
+Base com 6.000 registros, sem exclusão de dados faltantes para preservar a integridade da análise de risco.
+
+## Perfil Sociodemográfico
+
+**Perfil Etário:** Carteira de alta maturidade, idade média de 70 anos para titulares e cônjuges, concentração entre 60–80 anos e amplitude de 43 a 98 anos, indicando base homogênea e estabilizada.
+
+**Distribuição por Sexo:** Leve predominância masculina entre titulares (55%) e feminina entre cônjuges (54%). Essa paridade é estratégica para projeção de expectativa de vida.
+
+**Perfil dos Benefícios:** Renda média de R$ 3.006,07, concentrada entre R$ 2.000 e R$ 4.000. Cerca de 94% dos beneficiários recebem acima do salário mínimo (R$ 1.621,00), indicando estabilidade financeira e baixo risco de vulnerabilidade imediata.
+
+## Comparações
+
+**Renda por Sexo:** Sem disparidade significativa, média feminina (R$ 3.007,01) e masculina (R$ 3.005,29) são praticamente idênticas, com piso de R$ 900,00 e teto próximo a R$ 6.000,00.
+
+**Idade por Sexo:** Médias de 68 anos (feminino) e 70 anos (masculino), mesma idade mínima (50 anos) e tetos similares (95–96 anos), reforçando a maturidade uniforme da carteira.
+
+## Composição dos Casais
+
+Predomínio de casais heterogêneos: Titular Masculino + Cônjuge Feminino (52,3%) e Titular Feminino + Cônjuge Masculino (42,9%). Uniões homoafetivas representam 4,7% da base.
+
+## Síntese dos Resultados
+
+```{python}
+#| fig-align: center
+#| fig-height: 2.8
+
+sns.set_theme(style="white")
+plt.rcParams['figure.dpi'] = 90
+
+df_casal = df[df["Idade_conjuge_aposentado"].notna()].copy()
+df_casal["par"] = df_casal["Sexo_aposentado"] + ' + ' + df_casal["Sexo_conjuge_aposentado"]
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 2.8))
+
+# Gráfico 1: Benefício médio por sexo
+sns.barplot(x="Sexo_aposentado", y="Beneficio", data=df, ax=ax1,
+            palette="viridis", errorbar=None)
+ax1.set_title("Média de Benefícios por Sexo", fontsize=10, pad=6)
+ax1.set_xlabel(None)
+ax1.set_ylabel("Valor (R$)", fontsize=8)
+ax1.set_ylim(2900, 3100)  # zoom nas barras
+sns.despine(ax=ax1)
+
+# Gráfico 2: Composição dos casais
+order_casais = df_casal["par"].value_counts().index
+sns.countplot(x="par", data=df_casal, ax=ax2, palette="mako", order=order_casais)
+ax2.set_title("Composição dos Casais (Titular + Cônjuge)", fontsize=10, pad=6)
+ax2.set_xlabel(None)
+ax2.set_ylabel("Quantidade", fontsize=8)
+ax2.tick_params(axis='x', rotation=40, labelsize=7)
+
+for p in ax2.patches:
+    ax2.annotate(f'{int(p.get_height())}',
+                 (p.get_x() + p.get_width() / 2., p.get_height()),
+                 ha='center', va='center', xytext=(0, 5),
+                 textcoords='offset points', fontsize=7)
+
+sns.despine(ax=ax2)
+plt.tight_layout()
+plt.show()
+```
+
+Os principais achados que impactam a avaliação de risco da seguradora são:
+
+**Maturidade acentuada:** Idade média de 70 anos. Com 94% da base acima do salário mínimo e média de R$ 3.006,07, o grupo apresenta perfil financeiro estável e homogêneo.
+
+**Sem disparidade de renda por sexo:** Médias salariais praticamente idênticas (aprox. R$ 3.005,00 para ambos), o que facilita a previsão de fluxo de caixa.
+
+**Combinação majoritária (52,3%):** Titular masculino com cônjuge feminino. Segundo o IBGE, a expectativa de vida é de 80 anos para mulheres e 73 para homens (dados de 2019). Ponto relevante para a seguradora! 
+
+---
+::: {.rodape-final}
+Relatório produzido com [Quarto](https://quarto.org) · [luizalucio.github.io/meu-site](https://luizalucio.github.io/meu-site/) · 
+Emitido em 22/03/2026 – Lavras, MG
+:::

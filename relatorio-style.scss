@@ -1,0 +1,567 @@
+/*-- scss:defaults --*/
+
+// ============================================
+// FONTES
+// ============================================
+$web-font-path: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" !default;
+
+// ============================================
+// VARIÁVEIS BOOTSTRAP — mesmas do site
+// ============================================
+$primary:    #83177c;
+$secondary:  #58c6c3;
+$light:      #f8f7fc;
+$dark:       #1a1625;
+$body-bg:    #f8f7fc;
+$body-color: #2d2640;
+
+$font-family-base:       'Plus Jakarta Sans', system-ui, sans-serif;
+$font-family-sans-serif: 'Plus Jakarta Sans', system-ui, sans-serif;
+$font-size-base:         0.95rem;
+$line-height-base:       1.75;
+$headings-font-family:   'Fraunces', Georgia, serif;
+$headings-font-weight:   400;
+$headings-color:         #1a1625;
+
+$link-color:       $primary;
+$link-decoration:  none;
+
+$card-border-radius: 0.875rem;
+$card-border-color:  #ece9f5;
+$card-bg:            #ffffff;
+$border-radius:      0.5rem;
+$border-radius-lg:   0.875rem;
+
+/*-- scss:rules --*/
+
+// ============================================
+// TOKENS LOCAIS
+// ============================================
+$primary-light:    rgba(131, 23, 124, 0.07);
+$primary-glow:     rgba(131, 23, 124, 0.18);
+$accent:           #58c6c3;
+$accent-light:     rgba(88, 198, 195, 0.10);
+$highlight:        #fbd405;
+$text-main:        #1a1625;
+$text-muted-color: #5a5470;
+$text-soft:        #8b849e;
+$bg-page:          #f8f7fc;
+$bg-soft:          #f2f0f9;
+$border:           #ece9f5;
+$white:            #ffffff;
+
+// ============================================
+// GOOGLE FONTS
+// ============================================
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+// ============================================
+// BASE
+// ============================================
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background-color: $bg-page;
+  color: $text-main;
+  -webkit-font-smoothing: antialiased;
+}
+
+// ============================================
+// TIPOGRAFIA
+// ============================================
+h1, h2, h3, h4, h5 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 400;
+  color: $text-main;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: clamp(1.7rem, 3.5vw, 2.2rem); line-height: 1.15; }
+h2 { font-size: clamp(1.25rem, 2.5vw, 1.6rem); line-height: 1.25; border-bottom: 2px solid $border; padding-bottom: 0.4rem; }
+h3 { font-size: 1.05rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; color: $primary; }
+
+p { color: $text-muted-color; line-height: 1.78; }
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.84em;
+}
+
+// ============================================
+// CABEÇALHO DO DOCUMENTO (título, autor, data)
+// ============================================
+#title-block-header {
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 16px;
+  padding: 2.5rem 2.5rem 2rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+
+  // Linha colorida no topo — mesma do hero do site
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, $primary 0%, $accent 50%, $highlight 100%);
+  }
+
+  .title {
+    font-family: 'Fraunces', serif !important;
+    font-size: clamp(1.7rem, 4vw, 2.4rem) !important;
+    font-weight: 400 !important;
+    color: $text-main !important;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.4rem;
+  }
+
+  .subtitle {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 1rem !important;
+    color: $text-soft !important;
+    font-weight: 400 !important;
+    margin-bottom: 1.2rem;
+  }
+
+  .author, .date {
+    font-size: 0.875rem;
+    color: $text-soft;
+    font-weight: 500;
+  }
+
+  .author strong, .date strong { color: $primary; }
+}
+
+// ============================================
+// TOC — Sumário lateral
+// ============================================
+#TOC {
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 12px;
+  padding: 1.25rem 1.25rem 1rem;
+  font-size: 0.84rem;
+  position: sticky;
+  top: 1.5rem;
+
+  // Título do sumário
+  &::before {
+    content: 'Conteúdo';
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-size: 0.95rem;
+    color: $text-main;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid $border;
+  }
+
+  ul { list-style: none; padding-left: 0; margin: 0; }
+  ul ul { padding-left: 0.85rem; margin-top: 0.2rem; }
+
+  li { margin: 0.15rem 0; }
+
+  a {
+    color: $text-muted-color !important;
+    display: block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+
+    &:hover {
+      color: $primary !important;
+      background-color: $primary-light;
+    }
+  }
+
+  // Item ativo
+  a.active {
+    color: $primary !important;
+    background-color: $primary-light;
+    font-weight: 600;
+  }
+}
+
+// ============================================
+// CONTEÚDO PRINCIPAL
+// ============================================
+#quarto-content {
+  background-color: $white;
+  border-radius: 12px;
+  border: 1px solid $border;
+  padding: 2.5rem 3rem;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1.25rem;
+  }
+}
+
+// ============================================
+// HR — linha decorativa igual ao site
+// ============================================
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, $primary 0%, $accent 50%, $highlight 100%);
+  opacity: 1;
+  margin: 2.5rem 0;
+}
+
+// ============================================
+// CALLOUTS — reestilizados com a paleta do site
+// ============================================
+.callout {
+  border-radius: 10px !important;
+  border-left-width: 3px !important;
+  font-size: 0.9rem;
+
+  &.callout-note {
+    background-color: $primary-light !important;
+    border-left-color: $primary !important;
+    .callout-title { color: $primary; }
+  }
+
+  &.callout-tip {
+    background-color: $accent-light !important;
+    border-left-color: $accent !important;
+    .callout-title { color: darken($accent, 15%); }
+  }
+
+  &.callout-warning {
+    background-color: rgba($highlight, 0.12) !important;
+    border-left-color: darken($highlight, 15%) !important;
+    .callout-title { color: darken($highlight, 25%); }
+  }
+
+  &.callout-important {
+    background-color: rgba($primary, 0.04) !important;
+    border-left-color: $primary !important;
+    .callout-title { color: $primary; }
+  }
+
+  .callout-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+}
+
+// ============================================
+// TABELAS — kableExtra compat
+// ============================================
+table {
+  font-size: 0.875rem;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0;
+
+  thead tr th {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    padding: 0.65rem 0.85rem;
+    // cor definida via kableExtra row_spec no .qmd
+  }
+
+  tbody tr td {
+    padding: 0.55rem 0.85rem;
+    color: $text-muted-color;
+    border-bottom: 1px solid $border;
+  }
+
+  tbody tr:hover td { background-color: $primary-light; }
+  tbody tr:last-child td { border-bottom: none; }
+}
+
+.table-striped tbody tr:nth-of-type(odd) td {
+  background-color: rgba($bg-soft, 0.6);
+}
+
+// ============================================
+// FIGURAS E CAPTIONS
+// ============================================
+figure {
+  margin: 1.75rem 0;
+
+  figcaption, .figure-caption {
+    font-size: 0.82rem;
+    color: $text-soft;
+    text-align: center;
+    margin-top: 0.6rem;
+    font-style: italic;
+  }
+}
+
+// ============================================
+// CITAÇÕES / BLOCKQUOTE
+// ============================================
+blockquote {
+  border-left: 3px solid $accent;
+  background-color: $accent-light;
+  border-radius: 0 8px 8px 0;
+  padding: 0.9rem 1.2rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: $text-muted-color;
+
+  p { max-width: 100%; text-align: left; margin: 0; }
+}
+
+// ============================================
+// CODE BLOCKS
+// ============================================
+div.sourceCode {
+  background-color: $bg-soft;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 0;
+  overflow: hidden;
+
+  pre {
+    margin: 0;
+    padding: 1rem 1.2rem;
+    background: transparent;
+    font-size: 0.83em;
+    line-height: 1.6;
+  }
+}
+
+// Botão "Ver código"
+.code-fold-btn {
+  font-size: 0.8rem !important;
+  color: $primary !important;
+  background-color: $primary-light !important;
+  border: 1px solid rgba($primary, 0.2) !important;
+  border-radius: 6px !important;
+  padding: 0.2rem 0.7rem !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 500 !important;
+}
+
+// ============================================
+// SECTION NUMBER — numeração elegante
+// ============================================
+.header-section-number {
+  color: $primary;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.9em;
+  margin-right: 0.5rem;
+}
+
+// ============================================
+// TECH TAGS (reutilizável do site)
+// ============================================
+.tech-tag {
+  display: inline-block;
+  background-color: $bg-soft;
+  color: $text-muted-color;
+  border: 1px solid $border;
+  border-radius: 20px;
+  padding: 0.22rem 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  margin: 0.2rem 0.15rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+// ============================================
+// FOLHA DE ROSTO
+// ============================================
+.folha-rosto {
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 16px;
+  padding: 2.5rem 2.5rem 2rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, $primary 0%, $accent 50%, $highlight 100%);
+  }
+
+  .fr-disciplina {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $text-soft;
+    margin-bottom: 1.2rem;
+  }
+
+  .fr-titulo {
+    font-family: 'Fraunces', serif !important;
+    font-size: clamp(1.7rem, 4vw, 2.4rem) !important;
+    font-weight: 400 !important;
+    color: $text-main !important;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.4rem !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  .fr-subtitulo {
+    font-size: 1rem;
+    color: $text-soft;
+    margin-bottom: 1.5rem;
+  }
+
+  .fr-section-label {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $text-soft !important;
+    border: none !important;
+    padding: 0 !important;
+    margin-bottom: 1rem !important;
+  }
+}
+
+// Grid de consultores
+.consultores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.consultor-card {
+  background: $bg-soft;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+
+  p { text-align: left; max-width: 100%; margin: 0; color: $text-main; }
+  strong { color: $text-main; }
+
+  .cargo {
+    font-size: 0.78rem;
+    color: $text-soft;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .badge-link {
+    display: inline-block;
+    margin-right: 0.3rem;
+    margin-top: 0.3rem;
+    text-decoration: none;
+    img { border-radius: 4px; }
+  }
+}
+
+// Grid de metadados (cliente, objetivo, data)
+.fr-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.fr-meta-item {
+  background: $primary-light;
+  border: 1px solid rgba($primary, 0.15);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  font-size: 0.875rem;
+
+  strong {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: $primary;
+    margin-bottom: 0.3rem;
+  }
+
+  p { text-align: left; max-width: 100%; margin: 0; color: $text-muted-color; }
+}
+
+// ============================================
+// INFO BOX (tabela de identificação do cliente)
+// ============================================
+.info-box {
+  background: $bg-soft;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0 1.5rem;
+
+  table {
+    margin: 0;
+    font-size: 0.875rem;
+    width: 100%;
+  }
+
+  td, th {
+    border: none !important;
+    padding: 0.4rem 0.6rem !important;
+    color: $text-muted-color;
+  }
+
+  tr:hover td { background: transparent; }
+  tr:nth-child(odd) td { background: rgba($primary, 0.03); }
+}
+
+// ============================================
+// RODAPÉ FINAL DO RELATÓRIO
+// ============================================
+.rodape-final {
+  text-align: center;
+  font-size: 0.82rem;
+  color: $text-soft;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid $border;
+
+  a { color: $primary; font-weight: 500; }
+}
+
+// Classe utilitária para texto pequeno
+.small { font-size: 0.84rem; }
+.text-muted { color: $text-soft !important; }
+
+// ============================================
+// FOOTER
+// ============================================
+.nav-footer, footer {
+  border-top: 1px solid $border !important;
+  background-color: $white !important;
+  color: $text-soft !important;
+  font-size: 0.82rem !important;
+  padding: 1.2rem 0 !important;
+  margin-top: 3rem;
+  text-align: center;
+
+  a {
+    color: $primary !important;
+    font-weight: 500;
+  }
+}
+
+// ============================================
+// RESPONSIVIDADE
+// ============================================
+@media (max-width: 576px) {
+  #title-block-header {
+    padding: 1.75rem 1.25rem 1.5rem;
+  }
+
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.2rem; }
+}
